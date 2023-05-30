@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongoose://127.0.0.1:27017/socialnetwork_db');
+mongoose.connect('mongodb://127.0.0.1:27017/socialnetwork_db');
 
-module.exports = mongoose.connecttion;
+module.exports = mongoose.connection;
