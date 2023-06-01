@@ -66,6 +66,39 @@ module.exports = {
         }
     },
     //create reaction to thought
-    
-
+    addReaction(req, res) {
+        Thoughts.findOneAndUpdate(
+          { _id: req.params.thoughtId },
+          { $addToSet: { reactions: req.body } },
+          { runValidators: true, new: true }
+        )
+          .then((dbThoughtData) => {
+            if (!dbThoughtData) {
+              return res.status(404).json({ message: "No thought with this id!" });
+            }
+            res.json(dbThoughtData);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
+        },
+        //delete reactions to thought
+        removeReaction(req, res) {
+            Thoughts.findOneAndUpdate(
+              { _id: req.params.thoughtId },
+              { $pull: { reactions: { reactionId: req.params.reactionId } } },
+              { runValidators: true, new: true }
+            )
+              .then((dbThoughtData) => {
+                if (!dbThoughtData) {
+                  return res.status(404).json({ message: "No thought with this id!" });
+                }
+                res.json(dbThoughtData);
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+              });
+          }
 }
