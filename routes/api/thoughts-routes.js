@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
-const {} = require('../../controllers/thoughtController');
+const { createThought, addThought } = require('../../controllers/thoughtController');
 
 
 //create mew thought 
-//router.route('/').post(createThought)
+router.route('/:userId').post(addThought);
 
 module.exports = router;

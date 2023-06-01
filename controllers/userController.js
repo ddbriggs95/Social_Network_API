@@ -40,6 +40,18 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    //delete user
+    async deleteUser(req,res) {
+        try {
+            const deleteUser = await Users.findByIdAndDelete(req.params.id);
+            res.json(deleteUser);
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+
     //add friend
     async addFriend(req,res) {
         try {
@@ -47,10 +59,19 @@ module.exports = {
             res.json(newFriend);
              
         } catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(err);
         }
     },
     //remove friend
-    
+    async removeFriend(req, res) {
+        try {
+            const removeFriend = await Users.findByIdAndRemove(req.params.id, { $pullAll: {friends: req.params.friendId}});
+            res.json(removeFriend);
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
    
 }
