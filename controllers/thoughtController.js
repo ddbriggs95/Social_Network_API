@@ -23,4 +23,49 @@ module.exports = {
             })
             .catch(err => res.json(err));
     },
+    //get all Thooughts
+    async getThoughts(req,res) {
+        try {
+            const thought = await Thoughts.find();
+            res.json(thought);
+
+        } catch(err) {
+            res.status(500).json(err);
+
+        }
+    },
+    //get single thought by thought id
+    async getSingleThought(req, res) {
+        try {
+
+            const thought = await Thoughts.findOne(req.params.id);
+            res.json(thought);
+        } catch(err) {
+            res.status(500).json(err);
+        }
+    },
+    //update thought by thought id
+    async updateThought(req,res) {
+        try {
+          const thought = await Thoughts.findOneAndUpdate(req.params.id, req.body);
+          res.json(thought);  
+
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    //delete thought by thought id
+    async deleteThought(req,res) {
+        try{
+            const delThought = await Thoughts.findOneAndDelete(req.params.id);
+            res.json(delThought);
+
+        } catch(err) {
+            res.status(500).json(err);
+        }
+    },
+    //create reaction to thought
+    
+
 }
